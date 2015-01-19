@@ -12,17 +12,23 @@ Page.prototype.load = function(){
     var image = $(this);
     $.getJSON("http://www.lgtm.in/g?" + Math.random(), function (data) {
       image.attr("src", data.imageUrl);
-      image.unbind().click(function(){
-        chrome.tabs.sendMessage(tabId, {image: "![LGTM](" + image.attr("src") + ")"}, function(response){});
+      var launch = function(postfix) {
+        var str = "![LGTM](" + image.attr("src") + ")" + postfix;
+        chrome.tabs.sendMessage(tabId, {image: str}, function(response){
+        });
 
         $(".message").show(500);
         setTimeout(function() { $(".message").hide(500) }, 1000);
 
         var clipboard = $("<input/>");
         $("body").append(clipboard);
-        clipboard.val(image.attr("src")).select();
+        clipboard.val(str).select();
         document.execCommand('copy');
         clipboard.remove();
+      };
+      image.unbind().click(function(){
+        launch("");
+      });
       });
       image.show().prev().hide();
     });
