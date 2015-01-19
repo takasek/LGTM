@@ -29,6 +29,8 @@ Page.prototype.load = function(){
       image.unbind().click(function(){
         launch("");
       });
+      image.next().unbind().click(function(){
+        launch("\n\nマージします！");
       });
       image.show().prev().hide();
     });
