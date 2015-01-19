@@ -20,7 +20,7 @@ Page.prototype.load = function(){
         $(".message").show(500);
         setTimeout(function() { $(".message").hide(500) }, 1000);
 
-        var clipboard = $("<input/>");
+        var clipboard = $("<textarea/>");
         $("body").append(clipboard);
         clipboard.val(str).select();
         document.execCommand('copy');
